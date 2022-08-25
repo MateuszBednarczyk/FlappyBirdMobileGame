@@ -11,6 +11,8 @@ public class Player {
     Vector2 position;
     int screenWidth = Gdx.graphics.getWidth();
     int screenHeight = Gdx.graphics.getHeight();
+    private final static float JUMP_TIME = 5;
+    float gravity = 60f;
 
     public Player(Texture avatarImage) {
         avatar = new Sprite(avatarImage);
@@ -19,8 +21,19 @@ public class Player {
     }
 
     public void draw(SpriteBatch batch) {
+        update(Gdx.graphics.getDeltaTime());
         avatar.setPosition(position.x, position.y);
         avatar.draw(batch);
     }
 
+    public void update(float deltaTime) {
+        jump();
+        position.y -= gravity * deltaTime;
+    }
+
+    public void jump() {
+        if (Gdx.input.isTouched()) {
+            position.y = position.y + 10;
+        }
+    }
 }
