@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class FlappyCore extends ApplicationAdapter {
     SpriteBatch batch;
     Texture avatarImage;
+    Texture obstacleImage;
     Player player;
     Obstacle obstacle;
     OrthographicCamera orthographicCamera;
@@ -17,8 +18,10 @@ public class FlappyCore extends ApplicationAdapter {
     @Override
     public void create() {
         batch = new SpriteBatch();
-        player = createPlayer(new Texture("planeRed1.png"));
-        obstacle = new Obstacle(player);
+        avatarImage = new Texture("planeRed1.png");
+        obstacleImage = new Texture("rock.png");
+        player = createPlayer(avatarImage);
+        obstacle = new Obstacle(obstacleImage, player);
         orthographicCamera = new OrthographicCamera(player.screenWidth, player.screenHeight);
     }
 
@@ -30,13 +33,18 @@ public class FlappyCore extends ApplicationAdapter {
         orthographicCamera.update();
         batch.begin();
         player.draw(batch);
-        obstacle.draw(batch, Gdx.graphics.getDeltaTime());
+        obstacle.draw(batch);
+        if (Gdx.input.isTouched()) {
+            System.out.println("x " + Gdx.input.getX());
+            System.out.println("y " + Gdx.input.getY());
+        }
         batch.end();
     }
 
     @Override
     public void dispose() {
         batch.dispose();
+        obstacleImage.dispose();
         avatarImage.dispose();
     }
 

@@ -2,6 +2,8 @@ package com.matthew.flappy;
 
 import static com.matthew.flappy.WorldConfiguration.basePlayerX;
 import static com.matthew.flappy.WorldConfiguration.basePlayerY;
+import static com.matthew.flappy.WorldConfiguration.gravity;
+import static com.matthew.flappy.WorldConfiguration.playerMovementSpeed;
 import static com.matthew.flappy.WorldConfiguration.windowHeight;
 import static com.matthew.flappy.WorldConfiguration.windowWidth;
 
@@ -17,11 +19,9 @@ public class Player {
     int screenWidth = Gdx.graphics.getWidth();
     int screenHeight = Gdx.graphics.getHeight();
     private final static float JUMP_TIME = 5;
-    float gravity = 60;
     boolean isPlayerAlive;
     int killPosition = 0;
     boolean directionLeft;
-    int playerMovementSpeed = 10;
 
     public Player(Texture avatarImage, boolean isPlayerAlive) {
         avatar = new Sprite(avatarImage);
@@ -77,7 +77,7 @@ public class Player {
         } else if (position.y >= windowHeight) {
             setPlayerAlive(false);
         } else {
-            System.out.println("ALIVE");
+//            System.out.println("ALIVE");
         }
     }
 

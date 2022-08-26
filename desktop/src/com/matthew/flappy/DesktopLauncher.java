@@ -8,8 +8,6 @@ public class DesktopLauncher {
     public static void main(String[] arg) {
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
         config.setForegroundFPS(60);
-        config.setWindowedMode(1200, 600);
-        config.setWindowSizeLimits(1200, 800, 1200, 800);
         config.setTitle("Flappy");
         new Lwjgl3Application(new FlappyCore(), config);
     }

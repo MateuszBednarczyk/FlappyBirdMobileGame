@@ -9,6 +9,7 @@ public class WorldConfiguration {
     //player configuration
     static float basePlayerX = windowWidth / 2;
     static float basePlayerY = windowHeight / 2;
+    static int playerMovementSpeed = 10;
     //world configuration
     static float gravity = 60;
     //obstacle configuration

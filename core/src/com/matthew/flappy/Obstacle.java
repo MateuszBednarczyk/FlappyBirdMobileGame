@@ -1,40 +1,52 @@
 package com.matthew.flappy;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
+import static com.matthew.flappy.WorldConfiguration.windowHeight;
+
 public class Obstacle {
     Sprite bodyTexture;
     Vector2 position;
-    String bottomObstacleSource = "rockGrass.png";
-    String topObstacleSource = "rockGrassDown.png";
     Player player;
+    float clock = 0;
 
-    public Obstacle(Player player) {
-        position = new Vector2();
+    public Obstacle(Texture obstacleImage, Player player) {
         this.player = player;
+        bodyTexture = new Sprite(obstacleImage);
+        position = new Vector2();
+        bodyTexture.setScale(1);
     }
 
-    public void draw(SpriteBatch batch, float deltaTime) {
-        spawnObstacle(deltaTime);
+    public void draw(SpriteBatch batch) {
+        update();
+        bodyTexture.draw(batch);
     }
 
     public void update() {
+        if (player.isPlayerAlive) {
+            spawnObstacle();
+        }
     }
 
-    private void spawnObstacle(float deltaTime) {
-        if (deltaTime < 6) {
-            position.y = MathUtils.random(0, 1);
-            if (position.y == 0) {
-                bodyTexture = new Sprite(new Texture(bottomObstacleSource));
+    private void spawnObstacle() {
+        clock = clock + Gdx.graphics.getDeltaTime();
+        int start = 0;
+        int end = 10;
+        float topOrBottomObstacle = MathUtils.random(start, end);
+        System.out.println(topOrBottomObstacle);
+        if (clock > 5) {
+            if (topOrBottomObstacle % 2 == 0) {
+                position.y = 0;
             } else {
-                bodyTexture = new Sprite(new Texture(topObstacleSource));
+                bodyTexture.setRotation(180);
+                position.y = windowHeight;
             }
-            bodyTexture.setScale(1);
-            position.x = MathUtils.random(5, 20) + player.getPlayerPosition().x;
         }
+        clock = 0;
     }
 }
