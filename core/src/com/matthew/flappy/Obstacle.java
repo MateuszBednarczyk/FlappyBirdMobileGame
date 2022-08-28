@@ -7,18 +7,19 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
-import static com.matthew.flappy.WorldConfiguration.windowHeight;
+import static com.matthew.flappy.WorldConfiguration.bottomObstacleY;
+import static com.matthew.flappy.WorldConfiguration.topObstacleY;
 
 public class Obstacle {
     Sprite bodyTexture;
     Vector2 position;
     Player player;
-    float clock = 0;
+    float clock;
 
     public Obstacle(Texture obstacleImage, Player player) {
         this.player = player;
-        bodyTexture = new Sprite(obstacleImage);
         position = new Vector2();
+        bodyTexture = new Sprite(obstacleImage);
         bodyTexture.setScale(1);
     }
 
@@ -34,19 +35,19 @@ public class Obstacle {
     }
 
     private void spawnObstacle() {
-        clock = clock + Gdx.graphics.getDeltaTime();
+        clock += Gdx.graphics.getDeltaTime();
         int start = 0;
-        int end = 10;
-        float topOrBottomObstacle = MathUtils.random(start, end);
-        System.out.println(topOrBottomObstacle);
-        if (clock > 5) {
-            if (topOrBottomObstacle % 2 == 0) {
-                position.y = 0;
+        int end = 1;
+        if (clock > 2) {
+            int topOrBottomObstacle = MathUtils.random(start, end);
+            if (topOrBottomObstacle == 1) {
+                bodyTexture.setY(bottomObstacleY);
+                bodyTexture.setRotation(0);
             } else {
-                bodyTexture.setRotation(180);
-                position.y = windowHeight;
+                bodyTexture.setY(topOrBottomObstacle);
+                bodyTexture.setY(180);
             }
+            clock -= 2;
         }
-        clock = 0;
     }
 }

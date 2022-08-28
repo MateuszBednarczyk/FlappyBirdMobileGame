@@ -11,8 +11,8 @@ public class WorldConfiguration {
     static float basePlayerY = windowHeight / 2;
     static int playerMovementSpeed = 10;
     //world configuration
-    static float gravity = 60;
+    static float gravity = 120;
     //obstacle configuration
-    static float topObstacleY = windowHeight;
-    static float bottomObstacleY = 0;
+    static float topObstacleY = 0;
+    static float bottomObstacleY = windowHeight;
 }
