@@ -18,7 +18,6 @@ public class Obstacle {
 
     public Obstacle(Texture obstacleImage, Player player) {
         this.player = player;
-        position = new Vector2();
         bodyTexture = new Sprite(obstacleImage);
         bodyTexture.setScale(1);
     }
@@ -41,10 +40,10 @@ public class Obstacle {
         if (clock > 2) {
             int topOrBottomObstacle = MathUtils.random(start, end);
             if (topOrBottomObstacle == 1) {
-                bodyTexture.setY(bottomObstacleY);
+                position = new Vector2(0, bottomObstacleY);
                 bodyTexture.setRotation(0);
             } else {
-                bodyTexture.setY(topOrBottomObstacle);
+                position = new Vector2(0, topObstacleY);
                 bodyTexture.setY(180);
             }
             clock -= 2;
